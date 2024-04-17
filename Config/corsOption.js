@@ -1,5 +1,5 @@
 const allowedOrigins = [
-  "http://127.0.0.1:4000",
+  "https://crm-backend-vk8v.onrender.com",
   "http://localhost:4000",
   "https://crm-capstone-mern.netlify.app",
 ];
