@@ -20,6 +20,16 @@ Our CRM backend is responsible for handling various operations related to managi
   
 - **bcrypt**: Library for hashing passwords.
 
+- **nanoid**: For generating unique IDs.
+
+- **cloudinary**: Cloud-based image and video management service.
+
+- **cors**: Node.js package for enabling Cross-Origin Resource Sharing.
+
+- **nodemon**: Utility that automatically restarts the Node.js application when changes are detected.
+
+- **nodemailer**: Module for sending emails from Node.js applications.
+
 ## Directory Structure
 
 ```bash
@@ -46,7 +56,7 @@ To run the backend server locally, follow these steps:
 ### 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/GunaManivel/CRM-Backend
 ```
 ### 2. Install the dependencies:
 
