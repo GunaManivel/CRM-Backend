@@ -259,14 +259,36 @@ export const handleCreateOrder = async (req, res) => {
     // Extract order items and customer ID from request body
     const { order_items, cust_email, order_ETA, customer_id } = req.body;
 
-    // Update product stock and check for low stock
+    // Initialize total order amount
+    let order_amount = 0;
+
+    // Update product stock and calculate total order amount
     const low_stock = [];
     for (const item of order_items) {
+      // Find product details by product ID
+      const product = await Product.findOne({ product_ID: item.product_ID });
+
+      // Check if product exists
+      if (!product) {
+        return res
+          .status(404)
+          .json({ message: `Product with ID ${item.product_ID} not found` });
+      }
+
+      // Calculate subtotal for the current item
+      const subtotal = product.product_price * item.qty;
+
+      // Increase total order amount
+      order_amount += subtotal;
+
+      // Update product stock
       const result = await Product.findOneAndUpdate(
         { product_ID: item.product_ID },
         { $inc: { product_stock: -item.qty } },
         { new: true }
       );
+
+      // Check if product is low in stock
       if (result.product_stock <= 10) {
         low_stock.push(result.product_ID);
       }
@@ -281,8 +303,13 @@ export const handleCreateOrder = async (req, res) => {
     // Generate order ID
     const orderID = "OD-" + nanoid(12);
 
-    // Create new order
-    const createOrder = new Order({ ...req.body, orderID, customer_id });
+    // Create new order with updated order amount
+    const createOrder = new Order({
+      ...req.body,
+      orderID,
+      customer_id,
+      order_amount,
+    });
     await createOrder.save();
     console.log("New order placed data saved");
 
@@ -309,7 +336,7 @@ export const handleCreateOrder = async (req, res) => {
     // Respond with success message and order details
     return res.status(200).json({
       message: "Order placed",
-      order: { ...req.body, orderID },
+      order: { ...req.body, orderID, order_amount },
     });
   } catch (error) {
     console.error("Error creating order:", error);
