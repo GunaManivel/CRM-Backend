@@ -159,14 +159,13 @@ export const getRevenue = async (req, res) => {
           order_status: 1,
           order_amount: 1,
           year: { $substr: ["$order_date", 0, 4] },
-          month: { $substr: ["$order_date", 4, 2] },
-          date: { $substr: ["$order_date", 6, 2] },
+          month: { $substr: ["$order_date", 5, 2] }, // Fix: Use 5 instead of 4 to get the month
         },
       },
       {
         $match: {
           year: year,
-          order_status: ORDER_STATUS.Delivered,
+          order_status: "DELIVERED", // Fix: Correct the order status value
         },
       },
       {
@@ -184,13 +183,11 @@ export const getRevenue = async (req, res) => {
           order_status: 1,
           order_amount: 1,
           year: { $substr: ["$order_date", 0, 4] },
-          month: { $substr: ["$order_date", 4, 2] },
-          date: { $substr: ["$order_date", 6, 2] },
         },
       },
       {
         $match: {
-          order_status: ORDER_STATUS.Delivered,
+          order_status: "DELIVERED", // Fix: Correct the order status value
         },
       },
       {
@@ -211,15 +208,14 @@ export const getRevenue = async (req, res) => {
           order_status: 1,
           order_amount: 1,
           year: { $substr: ["$order_date", 0, 4] },
-          month: { $substr: ["$order_date", 4, 2] },
-          date: { $substr: ["$order_date", 6, 2] },
+          month: { $substr: ["$order_date", 5, 2] }, // Fix: Use 5 instead of 4 to get the month
         },
       },
       {
         $match: {
           year: year,
           month: month,
-          order_status: ORDER_STATUS.Delivered,
+          order_status: "DELIVERED", // Fix: Correct the order status value
         },
       },
       {
