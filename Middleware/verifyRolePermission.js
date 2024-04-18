@@ -1,5 +1,7 @@
+// Middleware function to verify user role permissions
 export const verifyRolePermission = (...allowedRoles) => {
   return (req, res, next) => {
+    // Log statement indicating entry into the middleware
     console.log("In verify permission");
 
     // Check if the user's role is provided in the request
@@ -10,6 +12,7 @@ export const verifyRolePermission = (...allowedRoles) => {
 
     // Convert the allowedRoles array to lowercase for case-insensitive comparison
     const rolesArray = allowedRoles.map((role) => {
+      // Log each allowed role for debugging purposes
       console.log("Allowed role:", role);
       return role.toLowerCase();
     });

@@ -123,10 +123,16 @@ export const monthlyOrders = async (req, res) => {
       .skip(skip)
       .limit(limit);
 
-    if (ordersMonthly.length > 0 || ordersYearly.length > 0) {
+    // Fetch order details for monthly orders
+    const ordersMonthlyDetails = await populateOrderDetails(ordersMonthly);
+
+    // Fetch order details for yearly orders
+    const ordersYearlyDetails = await populateOrderDetails(ordersYearly);
+
+    if (ordersMonthlyDetails.length > 0 || ordersYearlyDetails.length > 0) {
       return res.status(200).json({
-        ordersMonthly,
-        ordersYearly,
+        ordersMonthly: ordersMonthlyDetails,
+        ordersYearly: ordersYearlyDetails,
         currentPage: page,
         totalPages: Math.max(
           Math.ceil(ordersMonthly.length / limit),
@@ -139,6 +145,20 @@ export const monthlyOrders = async (req, res) => {
   } catch (error) {
     console.error("Error fetching monthly and yearly orders:", error);
     res.status(500).json({ message: "Internal server error", error: error });
+  }
+};
+
+// Function to populate order details
+const populateOrderDetails = async (orders) => {
+  try {
+    const populatedOrders = await Order.populate(orders, {
+      path: "order_items.product_ID",
+      select: "product_name product_price",
+    });
+    return populatedOrders;
+  } catch (error) {
+    console.error("Error populating order details:", error);
+    return [];
   }
 };
 

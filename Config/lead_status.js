@@ -1,3 +1,4 @@
+// Define lead statuses with their corresponding codes and descriptions
 export const LEAD_STATUS = {
   Approached: {
     code: "APPROACHED",

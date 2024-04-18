@@ -55,6 +55,7 @@ export const addAdmin = async (req, res) => {
       .json({ message: "Internal server error", error: error.message });
   }
 };
+
 // Admin login
 export const adminLogin = async (req, res) => {
   try {
