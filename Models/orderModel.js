@@ -60,6 +60,11 @@ const orderSchema = new mongoose.Schema({
     type: Array,
     default: [],
   },
+  customer_id: {
+    type: String,
+    required: true,
+    trim: true,
+  },
 });
 
 export const Order = mongoose.model("order", orderSchema);
