@@ -55,7 +55,11 @@ export const handleRegisterUser = async (req, res) => {
       from: process.env.MAIL_ID,
       to: savedUser.email,
       subject: "Account Activation Link",
-      text: `Greetings from Clean Life! Click on the link to activate your account: ${activationLink}. This link is valid for 15 minutes.`,
+      text: `Greetings from PurePath!
+
+To activate your PurePath account, please click on the link below within the next 15 minutes:
+
+${activationLink}`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -228,7 +232,13 @@ export const resendActivation = async (req, res) => {
       from: process.env.MAIL_ID,
       to: foundUser.email,
       subject: "Account Activation link sent",
-      text: `Greetings from Clean Life! Click on the link to activate your account: ${link}. This link is valid for 15 minutes.`,
+      text: `Greetings from PurePath!
+
+To activate your account, please click on the following link within the next 15 minutes:
+
+${link}
+
+Thank you for choosing PurePath!`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -296,7 +306,11 @@ export const forgotPassword = async (req, res) => {
       from: process.env.MAIL_ID,
       to: foundUser.email,
       subject: "Password Reset Link",
-      text: `Greetings from Clean Life! Click on the below link to reset your password. This link is valid for 15 minutes: ${resetLink}`,
+      text: `Greetings from PurePath!
+
+To reset your password, please click on the link below within the next 15 minutes:
+
+${resetLink}`,
     };
 
     // Send email

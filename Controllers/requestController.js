@@ -33,9 +33,9 @@ export const createRequest = async (req, res) => {
       from: process.env.MAIL_ID,
       to: req.body.cust_email,
       subject: `Your service request is placed. Request ID: ${requestID}`,
-      text: `Greetings from Clean Life! 
-         Your service request has been placed: Request ID: ${requestID}
-         Our engineer will contact you soon.`,
+      text: `Your service request has been successfully placed. 
+      Here is your request ID: ${requestID}. 
+      Our dedicated engineer will promptly reach out to you to assist with your needs.`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
