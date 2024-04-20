@@ -256,7 +256,7 @@ export const handleAddEmployee = async (req, res) => {
       from: process.env.MAIL_ID,
       to: result.email,
       subject: "Account Activation Link",
-      text: `Greetings from Clean Life! Click on the below link to activate your account. This link is valid for 15 minutes. ${link}`,
+      text: `Greetings from PurePath !! Click on the below link to activate your account. This link is valid for 15 minutes. ${link}`,
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
